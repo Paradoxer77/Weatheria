@@ -5,6 +5,8 @@ async function getWeather(cityName) {
   );
 
   const weatherInfo = await response.json();
+  const location = weatherInfo.location;
+  const weather = weatherInfo.current;
 }
 
 getWeather("london");
