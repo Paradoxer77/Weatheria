@@ -19,30 +19,37 @@
     </div>
 
     <div class="container">
-      <i class="fas fa-map-marker-alt weather"></i>
+      <input type="text" placeholder="Enter a city name" id="city">
 
-      <input type="text" placeholder="Enter a city name">
+      <i class="fas fa-search-location" id="search"></i>
     </div>
 
     <div class="container">
-      <span>London, GB</span>
+      <span id="location-name">London, GB</span>
 
-      <img src="#" alt="country flag" id="country-flag">
+      <img src="https://www.countryflags.io/gb/flat/64.png" alt="country flag" id="country-flag">
     </div>
       
 
-      <h2 class="container">7°C</h2>
+      <h2 class="container">7 °C &nbsp;&nbsp;&nbsp;<span id="is-day">☀️</span></h2>
 
-      <p>Lorem ipsum dolor sit amet.</p>
 
-      <p class="container">Lorem ipsum dolor sit amet.</p>
+      <div class="container">
+        <span id="feels-like">Feels like: 8 °C</span>
+        <span id="humidity">&nbsp; | Humidity: 800</span>
+      </div>
 
-      <label class="switch" class="container">
+      <p class="container"></p>
+
+      <label class="switch" class="container" id="toggle">
         <input type="checkbox">
         <span class="slider round"></span>
       </label>
 
-      <p class="container">8:14:23 PM</p>
+      <div class="container">
+        <p id="time">8:14:23 PM</p>
+      </div>
+      
   </div>
 
   <script src="./app.js"></script>

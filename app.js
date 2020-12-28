@@ -259,6 +259,7 @@ async function getWeather(cityName) {
   );
 
   const weatherInfo = await response.json();
+
   const location = weatherInfo.location;
   const weather = weatherInfo.current;
 
@@ -267,4 +268,4 @@ async function getWeather(cityName) {
   flag.src = `https://www.countryflags.io/${countryCode}/flat/64.png`;
 }
 
-getWeather("beijing");
+getWeather("london");
