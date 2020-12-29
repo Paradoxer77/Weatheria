@@ -258,6 +258,7 @@ const feelsLike = document.getElementById("feels-like");
 const humidity = document.getElementById("humidity");
 const searchBar = document.getElementById("city");
 const search = document.getElementById("search");
+const time = document.getElementById("time");
 
 async function getWeather(cityName) {
   try {
@@ -270,11 +271,17 @@ async function getWeather(cityName) {
     const location = weatherInfo.location;
     const weather = weatherInfo.current;
     const countryCode = countryList[location.country];
-
+    time.style.color = "rgb(63, 63, 63)";
+    time.textContent = "Working on it...";
     addToDom(weather, countryCode, location);
   } catch (error) {
-    console.log("Sorry could not find the place you were looking for.");
+    time.style.color = "red";
+    time.textContent = "Place not found.";
   }
+
+  setTimeout(() => {
+    time.textContent = "";
+  }, 2000);
 }
 
 function addToDom(weather, countryCode, location) {
@@ -289,12 +296,23 @@ function addToDom(weather, countryCode, location) {
   humidity.textContent = ` | Humidity: ${weather.humidity}`;
   locationName.textContent = `${location.name}, ${countryCode}`;
   flag.src = `https://www.countryflags.io/${countryCode}/flat/64.png`;
+
+  time.style.color = "lime";
+  time.textContent = "Success";
 }
 
 search.addEventListener("click", () => {
   let place = searchBar.value;
   getWeather(place);
   searchBar.value = "";
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    getWeather(searchBar.value);
+
+    searchBar.value = "";
+  }
 });
 
 getWeather("Tokyo");
