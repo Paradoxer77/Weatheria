@@ -116,8 +116,8 @@ const countryList = {
   Kazakhstan: "KZ",
   Kenya: "KE",
   Kiribati: "KI",
-  "Korea (the Democratic People's Republic of)": "KP",
-  "Korea (the Republic of)": "KR",
+  Korea: "KP",
+  Korea: "KR",
   Kuwait: "KW",
   Kyrgyzstan: "KG",
   "Lao People's Democratic Republic (the)": "LA",
@@ -180,7 +180,7 @@ const countryList = {
   Qatar: "QA",
   "Republic of North Macedonia": "MK",
   Romania: "RO",
-  "Russian Federation (the)": "RU",
+  Russia: "RU",
   Rwanda: "RW",
   Réunion: "RE",
   "Saint Barthélemy": "BL",
@@ -199,7 +199,7 @@ const countryList = {
   Seychelles: "SC",
   "Sierra Leone": "SL",
   Singapore: "SG",
-  "Sint Maarten (Dutch part)": "SX",
+  "Sint Maarten": "SX",
   Slovakia: "SK",
   Slovenia: "SI",
   "Solomon Islands": "SB",
@@ -233,7 +233,7 @@ const countryList = {
   Ukraine: "UA",
   "United Arab Emirates": "AE",
   "United Kingdom": "GB",
-  "United States Minor Outlying Islands (the)": "UM",
+  "United States Minor Outlying Islands": "UM",
   "United States of America": "US",
   Uruguay: "UY",
   Uzbekistan: "UZ",
@@ -250,22 +250,51 @@ const countryList = {
   "Åland Islands": "AX",
 };
 
+const locationName = document.getElementById("location-name");
 const flag = document.getElementById("country-flag");
+const temperature = document.getElementById("temperature");
+const isDay = document.getElementById("is-day");
+const feelsLike = document.getElementById("feels-like");
+const humidity = document.getElementById("humidity");
+const searchBar = document.getElementById("city");
+const search = document.getElementById("search");
 
 async function getWeather(cityName) {
-  const response = await fetch(
-    `http://api.weatherapi.com/v1/current.json?key=1df43d26385f44b8842140711202712&q=${cityName}`,
-    { mode: "cors" }
-  );
+  try {
+    const response = await fetch(
+      `http://api.weatherapi.com/v1/current.json?key=1df43d26385f44b8842140711202712&q=${cityName}`,
+      { mode: "cors" }
+    );
 
-  const weatherInfo = await response.json();
+    const weatherInfo = await response.json();
+    const location = weatherInfo.location;
+    const weather = weatherInfo.current;
+    const countryCode = countryList[location.country];
 
-  const location = weatherInfo.location;
-  const weather = weatherInfo.current;
+    addToDom(weather, countryCode, location);
+  } catch (error) {
+    console.log("Sorry could not find the place you were looking for.");
+  }
+}
 
-  const countryCode = countryList[location.country];
+function addToDom(weather, countryCode, location) {
+  if (weather["is_day"]) {
+    isDay.textContent = "☀️";
+  } else {
+    isDay.textContent = "🌕";
+  }
 
+  feelsLike.innerHTML = `${weather["feelslike_c"]} °C &nbsp;`;
+  temperature.innerHTML = `${weather["temp_c"]} °C`;
+  humidity.textContent = ` | Humidity: ${weather.humidity}`;
+  locationName.textContent = `${location.name}, ${countryCode}`;
   flag.src = `https://www.countryflags.io/${countryCode}/flat/64.png`;
 }
 
-getWeather("london");
+search.addEventListener("click", () => {
+  let place = searchBar.value;
+  getWeather(place);
+  searchBar.value = "";
+});
+
+getWeather("Tokyo");

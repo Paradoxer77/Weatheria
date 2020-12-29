@@ -56,6 +56,7 @@ input:focus {
   border-radius: 50px;
   border: 2px solid rgb(123, 121, 121);
   border: none;
+  user-select: text;
 }
 
 #location-name {
@@ -67,7 +68,12 @@ input:focus {
 }
 
 #is-day {
+  margin-left: 10px;
   font-size: 1.5em;
+}
+
+#temperature {
+  font-size: 2em;
 }
 
 /* toggle button */
