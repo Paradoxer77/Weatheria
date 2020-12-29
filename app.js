@@ -262,7 +262,7 @@ const search = document.getElementById("search");
 async function getWeather(cityName) {
   try {
     const response = await fetch(
-      `http://api.weatherapi.com/v1/current.json?key=1df43d26385f44b8842140711202712&q=${cityName}`,
+      `https://api.weatherapi.com/v1/current.json?key=1df43d26385f44b8842140711202712&q=${cityName}`,
       { mode: "cors" }
     );
 
